@@ -40,11 +40,21 @@ end
   end
 end
 
+jar_path = "#{node['exhibitor']['install_dir']}/"\
+  "#{node['exhibitor']['version']}.jar"
+
 case node['exhibitor']['install_method']
 when 'gradle'
   include_recipe 'exhibitor::gradle'
 when 'maven'
   include_recipe 'exhibitor::maven'
+when 'download'
+  remote_file jar_path do
+    source node['exhibitor']['jar_url']
+    owner node['exhibitor']['user']
+    mode 0644
+    not_if { File.exist? jar_path }
+  end
 end
 
 case node['exhibitor']['cli']['configtype']

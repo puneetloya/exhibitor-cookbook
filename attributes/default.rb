@@ -56,3 +56,4 @@ default['exhibitor']['config'] = {
   'auto-manage-instances'                    => '1',
   'servers-spec'                             => "1:#{node['ipaddress']}",
 }
+default['exhibitor']['jar_url'] = nil
